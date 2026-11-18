@@ -6,20 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('sku', 50)->unique();
+            $table->string('name', 150);
+            $table->string('unit', 30); // contoh: gram, ml, pcs, kg, liter
+            $table->decimal('current_stock', 12, 2)->default(0);
+            $table->integer('lead_time_days')->default(1); // waktu tunggu pengiriman supplier (hari)
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('products');
